@@ -2,9 +2,10 @@ import { Button } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import auth from '../../firebase.init';
-import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import google1 from '../../images/icon/google1.png'
 
 
 const SignUp = () => {
@@ -18,6 +19,8 @@ const SignUp = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [signInWithGoogle,] = useSignInWithGoogle(auth);
 
     let navigate = useNavigate();
     let location = useLocation();
@@ -33,7 +36,7 @@ const SignUp = () => {
         setConfirmPassword(event.target.value);
     }
 
-    const formSubmiteButton = event => {
+    const createUserWithEmailPassword = event => {
         event.preventDefault()
         if (password !== confirmPassword) {
             setErrorP("two password didn't match")
@@ -58,11 +61,17 @@ const SignUp = () => {
             let from = location.state?.from?.pathname || "/";
             navigate(from, { replace: true });
         }
+
+    }
+    // SignIn with Google
+    const handelGoogleSignin = () => {
+        signInWithGoogle()
+
     }
     return (
         <div>
             <h3 className='text-center mt-2'>Resister</h3>
-            <Form onSubmit={formSubmiteButton} className='w-50 mx-auto'>
+            <Form onSubmit={createUserWithEmailPassword} className='w-50 mx-auto'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control onBlur={handelEmailBlur} type="email" placeholder="Enter email" required />
@@ -87,8 +96,25 @@ const SignUp = () => {
 
                 <p className='text-danger'>{error?.message}</p>
             </Form>
+            <div className='d-flex mx-auto'>
+                <div className='w-25 h-.5 border border-1  '>
 
+                </div>
+                <div>
+                    <p>or</p>
+                </div>
+                <div className='w-25 h-.5 border border-1 '>
+
+                </div>
+            </div>
+            <div className='text-center mt-3 '>
+                <button onClick={handelGoogleSignin} className='px-5 py-2 border border-0 rounded-3 bg-primary text-light'>
+                    <img className='w-5 pe-2' src={google1} alt="" /> Google Signup
+                </button>
+
+            </div>
         </div>
+
     );
 };
 

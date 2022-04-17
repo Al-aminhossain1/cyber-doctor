@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, } from 'react-firebase-hooks/auth';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import google1 from '../../images/icon/google1.png'
 
 const Login = () => {
     const [login, setLogin] = useState('false')
@@ -15,6 +16,7 @@ const Login = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+    const [signInWithGoogle,] = useSignInWithGoogle(auth);
     // const navigate = useNavigate()
     // const handelRegister = () => {
     //     navigate('/signup')
@@ -30,6 +32,10 @@ const Login = () => {
             setErrorP("User not Found, Register frist")
         }
         createUserWithEmailAndPassword(email, password)
+    }
+    // SignIn with Google
+    const handelGoogleSignin = () => {
+        signInWithGoogle()
     }
     return (
         <div>
@@ -57,6 +63,12 @@ const Login = () => {
                     {login ? 'Login' : 'Resister'}
                 </Button>
             </Form>
+            <div className='text-center mt-3 '>
+                <button onClick={handelGoogleSignin} className='px-5 py-2 border border-0 rounded-3 bg-primary text-light'>
+                    <img className='w-5 pe-2' src={google1} alt="" /> Google SignIn
+                </button>
+
+            </div>
         </div>
     );
 };
