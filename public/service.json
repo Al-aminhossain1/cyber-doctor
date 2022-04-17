@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "image": "https://i.ibb.co/4VfdcLw/malware1.jpg",
+        "name": "Malware Remove",
+        "price": 50,
+        "description": "if your website is malware ifectede so don't worry i am here to solve your problem"
+    },
+    {
+        "id": 2,
+        "image": "https://i.ibb.co/QNgNNXt/hacked.webp",
+        "name": "Malware Remove",
+        "price": 50,
+        "description": "if your website is malware ifectede so don't worry i am here to solve your problem"
+    },
+    {
+        "id": 3,
+        "image": "https://i.ibb.co/BCjD2JQ/penetration1.jpg",
+        "name": "Malware Remove",
+        "price": 50,
+        "description": "if your website is malware ifectede so don't worry i am here to solve your problem"
+    }
+]
