@@ -1,23 +1,27 @@
 import { Button } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
-import { Link } from 'react-router-dom';
+import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 
 const SignUp = () => {
-
-
-
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [errorP, setErrorP] = useState('')
     const [
         createUserWithEmailAndPassword,
         user,
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+
+    let navigate = useNavigate();
+    let location = useLocation();
+
 
     const handelEmailBlur = event => {
         setEmail(event.target.value);
@@ -31,8 +35,29 @@ const SignUp = () => {
 
     const formSubmiteButton = event => {
         event.preventDefault()
-        createUserWithEmailAndPassword(email, password)
-        console.log(user);
+        if (password !== confirmPassword) {
+            setErrorP("two password didn't match")
+            return;
+        }
+        if (password.length && confirmPassword.length < 6) {
+            setErrorP('Password should be at least 6 characters')
+        }
+        if (user) {
+            setErrorP('user already exist')
+        }
+        if (error) {
+            return (
+
+                <p> {error?.message}</p>
+
+            )
+        }
+        else {
+            createUserWithEmailAndPassword(email, password)
+            setErrorP('');
+            let from = location.state?.from?.pathname || "/";
+            navigate(from, { replace: true });
+        }
     }
     return (
         <div>
@@ -54,11 +79,13 @@ const SignUp = () => {
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control onBlur={handelConfirmPasswordBlur} type="password" placeholder="Confirm-Password" required />
                 </Form.Group>
+                <p className='text-danger'>{errorP}</p>
                 <p>Already have an account? <Link className='text-decoration-none' to='/login'>Please login</Link></p>
                 <Button variant="primary" type="submit">
                     Register
                 </Button>
 
+                <p className='text-danger'>{error?.message}</p>
             </Form>
 
         </div>
