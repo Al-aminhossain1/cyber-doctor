@@ -1,7 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const Service = ({ service }) => {
+    const navigate = useNavigate();
+    const handelCheckout = () => {
+        navigate('/checkout');
+    }
     const { name, price, description, image } = service;
     return (
 
@@ -14,7 +19,7 @@ const Service = ({ service }) => {
                     <p className="card-text">Price:$ {price}</p>
                     <small className="card-text">Service:{description}</small>
                     <br />
-                    <button className='btn btn-primary m-2'>purchess</button>
+                    <button onClick={handelCheckout} className='btn btn-primary m-2'>purchess</button>
 
                 </div>
             </div>
