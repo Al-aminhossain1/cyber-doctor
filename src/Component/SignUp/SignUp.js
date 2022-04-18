@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 import auth from '../../firebase.init';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import google1 from '../../images/icon/google1.png'
 
 
@@ -21,10 +21,18 @@ const SignUp = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
 
     const [signInWithGoogle,] = useSignInWithGoogle(auth);
-
+    let loginError;
     let navigate = useNavigate();
-    let location = useLocation();
 
+
+    if (user) {
+        navigate('/checkout')
+    }
+    if (error) {
+        loginError = <p> {error?.message}</p>
+
+
+    }
 
     const handelEmailBlur = event => {
         setEmail(event.target.value);
@@ -48,18 +56,11 @@ const SignUp = () => {
         if (user) {
             setErrorP('user already exist')
         }
-        if (error) {
-            return (
 
-                <p> {error?.message}</p>
-
-            )
-        }
         else {
             createUserWithEmailAndPassword(email, password)
             setErrorP('');
-            let from = location.state?.from?.pathname || "/";
-            navigate(from, { replace: true });
+
         }
 
     }
@@ -94,7 +95,7 @@ const SignUp = () => {
                     Register
                 </Button>
 
-                <p className='text-danger'>{error?.message}</p>
+                <p className='text-danger'>{loginError}</p>
             </Form>
             <div className='d-flex mx-auto'>
                 <div className='w-25 h-.5 border border-1  '>

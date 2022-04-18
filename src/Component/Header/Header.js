@@ -7,7 +7,7 @@ import auth from '../../firebase.init';
 
 
 const Header = () => {
-    const [user, loading, error] = useAuthState(auth);
+    const [user] = useAuthState(auth);
     const handelSignOUt = () => {
         signOut(auth);
     }
@@ -20,7 +20,7 @@ const Header = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">HOME</Nav.Link>
-                        <Nav.Link as={Link} to="/service">SERVICE</Nav.Link>
+                        <Nav.Link as={Link} to="/checkout">Service</Nav.Link>
                         <Nav.Link as={Link} to="/blog">BLOG</Nav.Link>
                         <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
