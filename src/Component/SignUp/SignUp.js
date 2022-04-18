@@ -18,7 +18,7 @@ const SignUp = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
     const [signInWithGoogle,] = useSignInWithGoogle(auth);
     let loginError;
@@ -63,7 +63,9 @@ const SignUp = () => {
 
         }
 
+
     }
+
     // SignIn with Google
     const handelGoogleSignin = () => {
         signInWithGoogle()

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle, } from 'react-firebase-hooks/auth';
+import { useAuthState, useSendEmailVerification, useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle, } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import google1 from '../../images/icon/google1.png'
+import Loading from '../Shared/Loading/Loading';
 
 const Login = () => {
     let navigate = useNavigate()
@@ -22,6 +23,10 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
     const [signInWithGoogle,] = useSignInWithGoogle(auth);
+    const [sendPasswordResetEmail, sending, error1] = useSendPasswordResetEmail(
+        auth
+    );
+
     // const navigate = useNavigate()
     // const handelRegister = () => {
     //     navigate('/signup')
@@ -35,24 +40,34 @@ const Login = () => {
             <p> error: {error?.message}</p>
         </div>
     }
-    if (user) {
-        setErrorP("User not Found, Register frist")
-    }
+
     const handelEmailBlur = event => {
         setEmail(event.target.value);
     }
     const handelPasswordBlur = event => {
         setPassword(event.target.value);
     }
+    if (loading) {
+        return <Loading></Loading>
+    }
     const userSignIn = event => {
         event.preventDefault()
-        // if (!user) {
-        //     setErrorP("User not Found, Register frist")
-        // }
+
+        if (!user) {
+            setErrorP("User not Found, Register frist")
+        }
 
         signInWithEmailAndPassword(email, password)
 
     }
+    // Reset Password
+    const resetPassword = (event) => {
+        setEmail(event.target.value);
+        sendPasswordResetEmail(email);
+        alert('Sent email');
+    }
+
+
     //  SignIn with Google
     const handelGoogleSignin = () => {
         signInWithGoogle()
@@ -74,6 +89,7 @@ const Login = () => {
                     <Form.Control onBlur={handelPasswordBlur} type="password" placeholder="Password" required />
                 </Form.Group>
                 <p>New to Cyber doctor? <Link className='text-decoration-none' to='/signup'>create an account</Link></p>
+                <button onClick={resetPassword} className='btn btn-link text-decoration-none' >Forget password</button>
 
                 <p className='text-danger'>{errorP}</p>
                 <Button variant="primary" type="submit">
