@@ -19,7 +19,7 @@ const Service = ({ service }) => {
                     <p className="card-text">Price:$ {price}</p>
                     <small className="card-text">Service:{description}</small>
                     <br />
-                    <button onClick={handelCheckout} className='btn btn-primary w-50 m-3'>purchess</button>
+                    <button onClick={handelCheckout} className='btn btn-primary w-50 m-3'>Checkout</button>
 
                 </div>
             </div>
