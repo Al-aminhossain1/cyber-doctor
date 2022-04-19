@@ -96,11 +96,12 @@ const Login = () => {
                     Login
                 </Button>
             </Form>
+            <p className='text-center text-danger'>{logerror}</p>
             <div className='text-center mt-3 '>
                 <button onClick={handelGoogleSignin} className='px-5 py-2 border border-0 rounded-3 bg-primary text-light'>
                     <img className='w-5 pe-2' src={google1} alt="" /> Google SignIn
                 </button>
-                {logerror}
+
             </div>
         </div>
     );

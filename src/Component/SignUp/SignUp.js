@@ -50,7 +50,7 @@ const SignUp = () => {
             setErrorP("two password didn't match")
             return;
         }
-        if (password.length && confirmPassword.length < 6) {
+        if (password.length < 6 && confirmPassword.length < 6) {
             setErrorP('Password should be at least 6 characters')
         }
         if (user) {
@@ -60,6 +60,7 @@ const SignUp = () => {
         else {
             createUserWithEmailAndPassword(email, password)
             setErrorP('');
+            loginError = "";
 
         }
 

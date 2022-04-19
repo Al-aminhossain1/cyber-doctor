@@ -12,14 +12,14 @@ const Service = ({ service }) => {
 
 
         <div className="col">
-            <div className="card">
+            <div className="card text-center">
                 <img src={image} className="card-img-top" alt="..." />
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>
                     <p className="card-text">Price:$ {price}</p>
                     <small className="card-text">Service:{description}</small>
                     <br />
-                    <button onClick={handelCheckout} className='btn btn-primary m-2'>purchess</button>
+                    <button onClick={handelCheckout} className='btn btn-primary w-50 m-3'>purchess</button>
 
                 </div>
             </div>
