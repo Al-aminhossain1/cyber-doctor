@@ -3,7 +3,7 @@
 ### live site link 
 (https://cyber-doctor.web.app/).
 
-
+ #### what functionality use in this project
 * user firebase authentication with email-password and google provider
 * add protect route/private route 
 * use react firebase hooks with create user and sign in
@@ -13,10 +13,9 @@
 
 ## use technology
 * react.js
-* react-route 
+* react-router
 * firebase
 * react-firebase-hooks
 * bootstrap
 * react-bootstrap
-* react-firebase-hooks
-* react-firebase-hooks
+
