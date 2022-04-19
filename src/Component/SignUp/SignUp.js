@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import google1 from '../../images/icon/google1.png'
 
 
+
 const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

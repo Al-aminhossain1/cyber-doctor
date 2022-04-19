@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useAuthState, useSendEmailVerification, useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle, } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle, } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import google1 from '../../images/icon/google1.png'
 import Loading from '../Shared/Loading/Loading';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     let navigate = useNavigate()
@@ -27,10 +29,7 @@ const Login = () => {
         auth
     );
 
-    // const navigate = useNavigate()
-    // const handelRegister = () => {
-    //     navigate('/signup')
-    // }
+
 
     if (user) {
         navigate(from, { replace: true })
@@ -64,7 +63,7 @@ const Login = () => {
     const resetPassword = (event) => {
         setEmail(event.target.value);
         sendPasswordResetEmail(email);
-        alert('Sent email');
+        toast('Sent email');
     }
 
 
@@ -101,6 +100,7 @@ const Login = () => {
                 <button onClick={handelGoogleSignin} className='px-5 py-2 border border-0 rounded-3 bg-primary text-light'>
                     <img className='w-5 pe-2' src={google1} alt="" /> Google SignIn
                 </button>
+                <ToastContainer />
 
             </div>
         </div>
